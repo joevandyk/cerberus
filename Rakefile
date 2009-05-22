@@ -126,6 +126,8 @@ task :release_files => [:clean, :package] do
     release.files = release_files.to_a
     release.package_name    = PKG_NAME
     release.release_name = "Cerberus #{PKG_VERSION}"
+    release.release_notes = IO.read( File.dirname( __FILE__ ) + '/Changelog.txt' )
+    release.release_changes = IO.read( File.dirname( __FILE__ ) + '/Changelog.txt' )
   end
 
 end
@@ -139,6 +141,7 @@ task :publish_news do
     publisher.password = ENV['RUBYFORGE_PASSWORD']
     publisher.subject = "[ANN] Cerberus #{PKG_VERSION} Released"
     publisher.details = IO.read(File.dirname(__FILE__) + '/Changelog.txt')
+    publisher.changes_file = File.dirname( __FILE__ ) + '/Changelog.txt' 
   end
 end
 
