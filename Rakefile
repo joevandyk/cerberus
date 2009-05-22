@@ -126,7 +126,10 @@ task :release_files => [:clean, :package] do
     release.files = release_files.to_a
     release.package_name    = PKG_NAME
     release.release_name = "Cerberus #{PKG_VERSION}"
-    release.release_notes = IO.read( File.dirname( __FILE__ ) + '/Changelog.txt' )
+
+    # disable parsing of CHANGES file since it doesn't exist
+    release.changes_file = nil
+    release.release_notes = '' # IO.read( File.dirname( __FILE__ ) + '/Changelog.txt' )
     release.release_changes = IO.read( File.dirname( __FILE__ ) + '/Changelog.txt' )
   end
 
